@@ -5,25 +5,28 @@ public class Billing
     {
         Scanner sc= new Scanner(System.in);
         int sum=0;
-        CustomerDetails obj = new CustomerDetails();  
-        ItemDetails item = new ItemDetails(); 
+      
         InvoiceDetails voice = new InvoiceDetails();
         QuantityDetails quan = new QuantityDetails();
+        
         int quanity_of_rice= sc.nextInt();
         int  quanity_of_pulses = sc.nextInt();
         int  rate_of_things = sc.nextInt();
         int rate_of_powder = sc.nextInt();
-        ArrayList<Object> list = new ArrayList<>();
+       
         System.out.println("Enter the Customer Details: ");
-        obj.Custmr_Name = sc.nextLine(); 
-        obj.Custmr_ID = sc.next();
-        obj.Phone_No = sc.nextInt();
-        obj.Date = sc.nextInt();
+        String Custmr_Name = sc.nextLine(); 
+        String Custmr_ID = sc.next();
+        int Phone_No = sc.nextInt();
+        int Date = sc.nextInt();
+
+      //  CustomerDetails obj = new CustomerDetails(Custmr_ID,Custmr_Name,Date,Phone_No);  
+
         System.out.println("Enter the Item Details: ");
-        item.Rice_type= sc.nextInt();
-        item.Bathroom_Things=sc.nextInt();
-        item.Powder_Type=sc.nextInt();
-        item.Pulses_type= sc.nextInt();
+        int Rice_type= sc.nextInt();
+        int Bathroom_Things=sc.nextInt();
+        int Powder_Type=sc.nextInt();
+        int Pulses_type= sc.nextInt();
 
         voice.Custmr_Name = sc.nextLine();
         voice.Custmr_ID = sc.next();
@@ -34,26 +37,22 @@ public class Billing
         quan.Bathroom_Things_All = sc.nextInt();
         quan.Powder_Type_All = sc.nextInt();
 
-        for(int i=0;i<list.size();i++)
-        {
-            list.add(obj.Custmr_ID);
-            list.add(obj.Custmr_Name);
-            list.add(item.Rice_type);
-            list.add(item.Pulses_type);
-            list.add(quan.Rice_cost_kg);
-            list.add(quan.Pulses_type_100g);
+        System.out.println("Enter the options:");
+        int option = sc.nextInt();
+        switch ( option) {
+            case 1:
+                
+                System.out.println("Customer Details");
+                CustomerDetails obj = new CustomerDetails(Custmr_ID,Custmr_Name,Date,Phone_No); 
+                
+            case 2:
+                System.out.println("Item Details");
+                ItemDetails item = new ItemDetails(Rice_type,Powder_Type,Pulses_type,Bathroom_Things); 
+        
+            default:
+                break;
         }
-        // for caluculating the bill
-        for(Object i: list)
-           
-        {
-            
-            if(i instanceof Integer)
-            {
-                System.out.println("list.get(i) +  * + quanity_of_rice");
-            }
-           
-        }
+
          
     }    
 }
@@ -62,7 +61,17 @@ public class Billing
     String Custmr_Name;
     String Custmr_ID;
     int Phone_No;
-    int Date;
+    int  Date;
+
+    ArrayList<CustomerDetails> list = new ArrayList<>();
+    CustomerDetails(String Custname,String Custid,int Custnumber, int Custdate)
+    {
+        this.Custmr_ID = Custid;
+        this.Custmr_Name = Custname;
+        this.Phone_No = Custnumber;
+        this.Date = Custdate;
+        list.add(this);
+    }
    
 }
 class ItemDetails
@@ -71,6 +80,16 @@ class ItemDetails
    int Pulses_type;
    int Powder_Type;
    int Bathroom_Things;
+
+   ArrayList<ItemDetails> item_list = new ArrayList<>();
+   ItemDetails(int ricetype,int plusetype, int powdertype, int bathroomthings)
+   {
+    this.Rice_type = ricetype;
+    this.Pulses_type = plusetype;
+    this.Powder_Type = powdertype;
+    this.Bathroom_Things = bathroomthings;
+
+   }
 
 }
 class InvoiceDetails
