@@ -14,15 +14,16 @@ public class Billing{
             {
                 case 1:
                 CustomerDetails newCustomer = getCustomerDetails(sc, idnum);
-                if(getEmailcheck(newCustomer.getEmail())== true)
+             
+                if(newCustomer == null )
                 {
-                    customers.add(newCustomer);
-                    idnum++;
+                    System.out.println("Invalid Information");
                     System.out.println("------------------------------------------------");
                 }
                 else
                 {
-                    System.out.println("Invalid Information");
+                    customers.add(newCustomer);
+                    idnum++;
                     System.out.println("------------------------------------------------");
                 }
                     break;
@@ -53,11 +54,17 @@ public class Billing{
             Integer phone = sc.nextInt();
             System.out.println("Enter the mailid");
             String email = sc.next();
-            System.out.println("------------------------------------------------");
+            boolean isValidEmail;
+            isValidEmail = getEmailCheck(email);
+
+            if (!isValidEmail) 
+            {
+            return null;
+            }
             CustomerDetails customerDetails = new CustomerDetails(custname,phone,email,idnum);
         return customerDetails;
      }
-     public static boolean getEmailcheck(String email)
+     public static boolean getEmailCheck(String email)
      {
         if(email.contains("@") && email.endsWith(".com"))
         {
@@ -65,4 +72,12 @@ public class Billing{
         }
         return false;
      }
+    /* public static void  getItemDetails(Scanner sc)
+     {
+        while (true) 
+        {
+            System.out.println();    
+        }
+        return ;
+     }*/
 }
