@@ -22,7 +22,7 @@ public class Bill{
                 
                 case 2:
                     
-                while (true) 
+               /* while (true) 
                 {
                     if(getItemDetails(sc) != null)
                     {
@@ -32,7 +32,7 @@ public class Bill{
                     {
                         break;
                     }  
-                }
+                }*/
                     
 
                 case 3:
@@ -43,15 +43,15 @@ public class Bill{
                     break;
             
                 case 5:
-                System.out.println("Searching customer in a list");
-                String customer = sc.next();
+                for(CustomerDetails i :customers)
+                {
+                    System.out.println("List of customer details:"); 
+                   // System.out.println("Customer Name: "+customers.getName() );  
+                }
               
             }
         }
     }
-
-
-
 
     public static void getCustomerDetails(Scanner sc,Integer idnum,ArrayList<CustomerDetails> customers)
     {
@@ -61,29 +61,46 @@ public class Bill{
             String custname= sc.next();
             System.out.println("Enter the phone");
             Integer phone = sc.nextInt();
-            String email = getValidEmail(customers,sc);
+            String email = getValidEmail(sc, customers);
     
             CustomerDetails customerDetails = new CustomerDetails(custname,phone,email,idnum);
             customers.add(customerDetails);
      }
 
-     public static String getValidEmail(ArrayList<CustomerDetails> customers, Scanner sc) 
+
+     public static String getValidEmail(Scanner sc, ArrayList<CustomerDetails> customers) 
      {
         System.out.println("Enter your email: ");
         String email = sc.next();
-    
+        if (!checkValidateMail(email)) 
+        {
+            System.out.println("Invalid email format, Please enter a valid email.");
+            return getValidEmail(sc, customers); 
+        }
+
+        if (!isUniqueEmail(customers, email)) {
+            System.out.println(" Email already exists! Enter a different email.");
+            return getValidEmail(sc, customers); 
+        }
+
+        return email; 
+    }
+
+     public static boolean isUniqueEmail(ArrayList<CustomerDetails> customers, String email) 
+     {
         for (CustomerDetails customer : customers) {
-            if (customer.getEmail().equals(email) || !getEmailCheck(email)) { 
+            if (customer.getEmail().equals(email)) { 
                 System.out.println("Invalid Email. Enter a valid one:");
-                return getValidEmail(customers, sc); 
+                return false; 
             }
         }
     
-        return email; 
+        return true; 
     }
     
-     public static boolean getEmailCheck(String email)
+     public static boolean checkValidateMail(String email)
      {
+
         if(email.contains("@") && email.endsWith(".com"))
         {
             return true;
@@ -91,14 +108,14 @@ public class Bill{
         return false;
      }
 
-     public static ItemDetails  getItemDetails(Scanner sc)
+    /*  public static ItemDetails  getItemDetails(Scanner sc)
      {
-            System.out.println("Enter the item:");
-            String item = sc.next();
+           // System.out.println("Enter the item:");
+            //1String item = sc.next();
             System.out.println("Enter the quantity:");  
             int quantity = sc.nextInt();
         
         ItemDetails itemDetails = new ItemDetails(item, quantity);
         return itemDetails ;
-     }
+     }*/
 }
