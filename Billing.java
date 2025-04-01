@@ -78,7 +78,8 @@ public class Bill{
             return getValidEmail(sc, customers); 
         }
 
-        if (!isUniqueEmail(customers, email)) {
+        if (!isUniqueEmail(customers, email)) 
+        {
             System.out.println(" Email already exists! Enter a different email.");
             return getValidEmail(sc, customers); 
         }
